@@ -1,0 +1,1 @@
+C:\Users\domet\source\repos\StudentScoreApp\studentscoreapp.client\obj\Debug\studentscoreapp.client.esproj.CoreCompileInputs.cache
