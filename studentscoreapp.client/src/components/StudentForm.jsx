@@ -49,6 +49,7 @@ function StudentForm({ reload, student, onClose }) {
             setter(value);
         }
     };
+    const getScore = (score) => score ? parseInt(score) : null;
 
     // handle บันทึกข้อมูลนักเรียน
     const saveStudent = async () => {
@@ -57,31 +58,25 @@ function StudentForm({ reload, student, onClose }) {
             return;
         }
 
-        const totalScore =
-            (parseInt(mathScore) || 0) +
-            (parseInt(scienceScore) || 0) +
-            (parseInt(historyScore) || 0) +
-            (parseInt(artScore) || 0) +
-            (parseInt(englishScore) || 0);
-
-        if (totalScore > 100) {
-            alert("Total score cannot exceed 100. Please check the scores for each subject.");
-            return;
-        }
+   
 
         try {
             const studentData = {
                 name,
-                totalscore: totalScore,
+                totalscore:
+                    (getScore(mathScore) || 0) +
+                    (getScore(scienceScore) || 0) +
+                    (getScore(historyScore) || 0) +
+                    (getScore(artScore) || 0) +
+                    (getScore(englishScore) || 0),
                 address,
-                mathScore: parseInt(mathScore) || 0,
-                scienceScore: parseInt(scienceScore) || 0,
-                historyScore: parseInt(historyScore) || 0,
-                artScore: parseInt(artScore) || 0,
-                englishScore: parseInt(englishScore) || 0,
+                mathScore: getScore(mathScore),
+                scienceScore: getScore(scienceScore),
+                historyScore: getScore(historyScore),
+                artScore: getScore(artScore),
+                englishScore: getScore(englishScore),
                 createAt: new Date().toISOString()
             };
-
             if (student) {
                 await axios.put(`https://localhost:7061/Students/${student.id}`, studentData);
                 alert("Updated suceess");

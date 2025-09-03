@@ -25,7 +25,7 @@ function App() {
         <div className="flex flex-col gap-4 min-h-screen w-full p-6 bg-[#87ceeb]">
            
             <div className="flex justify-between items-center pb-2">
-                <h2 className="text-xl font-bold text-gray-700">
+                <h2 className="text-xl font-bold text-gray-800">
                     Student Details
                 </h2>
                 <div className="flex gap-3 rounded-md">

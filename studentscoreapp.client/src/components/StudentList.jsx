@@ -8,7 +8,7 @@ function StudentList({ students, searchTerm, reload }) {
     const [editStudent, setEditStudent] = useState(null);
     const [detailStudent, setDetailStudent] = useState(null);
     const [currentPage, setCurrentPage] = useState(0); // เริ่มที่หน้า 0 (ตาม react-paginate)
-    const itemsPerPage = 13; // จำนวนรายการต่อหน้า
+    const itemsPerPage = 15; // จำนวนรายการต่อหน้า
 
     const deleteStudent = async (id) => {
         if (!window.confirm("Are you sure you want to delete this student?")) return;
@@ -53,9 +53,9 @@ function StudentList({ students, searchTerm, reload }) {
                     <tr>
                         <th className="py-2 px-4 border border-gray-300 text-left">ID</th>
                         <th className="py-2 px-4 border border-gray-300 text-left">Name</th>
-                        <th className="py-2 px-4 border border-gray-300 text-left">Totalscore (max100)</th>
+                        <th className="py-2 px-4 border border-gray-300 text-left">Totalscore</th>
                         <th className="py-2 px-4 border border-gray-300 text-left">Address</th>
-                        <th className="py-2 px-4 border border-gray-300 text-left">CreateAt</th>
+                        <th className="py-2 px-4 border border-gray-300 text-left">CreateAt (d/m/y)</th>
                         <th className="py-2 px-4 border border-gray-300 text-left">Actions</th>
                     </tr>
                 </thead>
@@ -71,27 +71,30 @@ function StudentList({ students, searchTerm, reload }) {
                                     {new Date(s.createAt + "Z").toLocaleString("th-TH", { timeZone: "Asia/Bangkok" })}
                                 </td>
                                 <td className="py-2 px-4 border border-gray-300">
-                                    <div className="flex gap-2">
+                                    <div className="flex justify-start gap-2 text-sm">
                                         <button
                                             onClick={() => setDetailStudent(s)}
-                                            className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+                                            className="flex items-center gap-1 px-2 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
                                             title="Detail score"
                                         >
-                                            <Eye className="w-4 h-4" />
+                                            <Eye className="w-3 h-3" />
+                                            <span>Details</span>
                                         </button>
                                         <button
                                             onClick={() => setEditStudent(s)}
-                                            className="p-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition"
+                                            className="flex items-center gap-1 px-2 py-1 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition"
                                             title="Edit"
                                         >
-                                            <Pencil className="w-4 h-4" />
+                                            <Pencil className="w-3 h-3" />
+                                            <span>Edit</span>
                                         </button>
                                         <button
                                             onClick={() => deleteStudent(s.id)}
-                                            className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+                                            className="flex items-center gap-1 px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
                                             title="Delete"
                                         >
-                                            <Trash2 className="w-4 h-4" />
+                                            <Trash2 className="w-3 h-3" />
+                                            <span>Delete</span>
                                         </button>
                                     </div>
                                 </td>
@@ -132,16 +135,30 @@ function StudentList({ students, searchTerm, reload }) {
             {detailStudent && (
                 <div className="fixed inset-0 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-                        <h2 className="text-lg font-semibold mb-2">Score Detail</h2>
-                        <p><b>Math:</b> {detailStudent.mathScore}</p>
-                        <p><b>Science:</b> {detailStudent.scienceScore}</p>
-                        <p><b>History:</b> {detailStudent.historyScore}</p>
-                        <p><b>Art:</b> {detailStudent.artScore}</p>
-                        <p><b>English:</b> {detailStudent.englishScore}</p>
+                        <h2 className="text-xl font-semibold mb-2 text-gray-800">Student Score Detail</h2>
+
+                        <div className="space-y-2">
+                            <p>
+                                <span className="font-semibold">Math:</span> {detailStudent.mathScore || "N/A"}
+                            </p>
+                            <p>
+                                <span className="font-semibold">Science:</span> {detailStudent.scienceScore || "N/A"}
+                            </p>
+                            <p>
+                                <span className="font-semibold">History:</span> {detailStudent.historyScore || "N/A"}
+                            </p>
+                            <p>
+                                <span className="font-semibold">Art:</span> {detailStudent.artScore || "N/A"}
+                            </p>
+                            <p>
+                                <span className="font-semibold">English:</span> {detailStudent.englishScore || "N/A"}
+                            </p>
+                        </div>
+
                         <div className="mt-4 flex justify-end">
                             <button
                                 onClick={() => setDetailStudent(null)}
-                                className="px-4 py-2 bg-blue-400 text-white rounded-md hover:bg-blue-500"
+                                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
                             >
                                 Close
                             </button>
