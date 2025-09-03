@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentScoreApp.Server.Data;
 
@@ -11,9 +12,11 @@ using StudentScoreApp.Server.Data;
 namespace StudentScoreApp.Server.Migrations
 {
     [DbContext(typeof(StudentDb))]
-    partial class StudentDbModelSnapshot : ModelSnapshot
+    [Migration("20250903142456_UpdateToStudent")]
+    partial class UpdateToStudent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -38,7 +38,12 @@ namespace StudentScoreApp.Server.Controllers
 
             existing.Name = student.Name;
             existing.Address = student.Address;
-            existing.Score = student.Score;
+            existing.MathScore = student.MathScore;
+            existing.ScienceScore = student.ScienceScore;
+            existing.HistoryScore = student.HistoryScore;
+            existing.ArtScore = student.ArtScore;
+            existing.EnglishScore = student.EnglishScore;
+            existing.TotalScore = student.TotalScore;
             await _studentDb.SaveChangesAsync();
             return Ok(existing);
 
