@@ -21,4 +21,5 @@ StudentScoreApp เป็นระบบจัดการคะแนนนั�
 - dotnet run
   
 # User Interface
-<img width="1919" height="1030" alt="image" src="https://github.com/user-attachments/assets/ce3bdf8e-8282-4b5a-8322-0c75b7c47f61" />
+<img width="1919" height="1026" alt="image" src="https://github.com/user-attachments/assets/0da40485-688a-4921-9fba-bcdd17456943" />
+
