@@ -1,29 +1,32 @@
-﻿import { useEffect, useState } from 'react';
-import axios from 'axios';
+﻿
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { loadStudents, setSearchTerm } from './actions';
 import './App.css';
 import StudentForm from './components/StudentForm';
 import StudentList from './components/StudentList';
 import { Search } from "lucide-react";
-function App() {
-    const [students, setStudents] = useState([]);
-    const [searchTerm, setSearchTerm] = useState("");
 
-    const loadStudents = async () => {
-        try {
-            const res = await axios.get("https://localhost:7061/Students");
-            setStudents(res.data);
-        } catch (err) {
-            console.log("Axios error", err);
-        }
-    }
+function App() {
+    const dispatch = useDispatch();
+    const students = useSelector((state) => state.students);
+    const searchTerm = useSelector((state) => state.searchTerm);
 
     useEffect(() => {
-        loadStudents();
-    }, []);
+        dispatch(loadStudents());
+        
+    }, [dispatch]);
+
+    useEffect(() => {
+        console.log(students);
+    }, [students]);
+
+   
+
+    const reload = () => dispatch(loadStudents());
 
     return (
         <div className="flex flex-col gap-4 min-h-screen w-full p-6 bg-[#87ceeb]">
-           
             <div className="flex justify-between items-center pb-2">
                 <h2 className="text-xl font-bold text-gray-800">
                     Student Details
@@ -34,22 +37,23 @@ function App() {
                             className="w-full px-3 py-2 bg-gray-200 border border-gray-300 rounded-md focus:outline-none pl-10"
                             placeholder="Search student"
                             value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
+                            onChange={(e) => dispatch(setSearchTerm(e.target.value))}
                         />
                         <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
-                            <Search size={18} /> 
+                            <Search size={18} />
                         </span>
                     </div>
-                    <StudentForm reload={loadStudents} />
+                    <StudentForm reload={reload} />
                 </div>
             </div>
+
 
             {/* รายการนักเรียน */}
             <div className="flex-1 p-4 rounded-md shadow-sm bg-white">
                 <StudentList
                     students={students}
-                    searchTerm={searchTerm}  // ส่ง searchTerm ไปให้ filter
-                    reload={loadStudents}
+                    searchTerm={searchTerm}
+                    reload={reload}
                 />
             </div>
         </div>

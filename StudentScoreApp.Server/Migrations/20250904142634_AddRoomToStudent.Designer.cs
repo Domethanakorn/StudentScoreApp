@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentScoreApp.Server.Data;
 
@@ -11,9 +12,11 @@ using StudentScoreApp.Server.Data;
 namespace StudentScoreApp.Server.Migrations
 {
     [DbContext(typeof(StudentDb))]
-    partial class StudentDbModelSnapshot : ModelSnapshot
+    [Migration("20250904142634_AddRoomToStudent")]
+    partial class AddRoomToStudent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,10 +48,6 @@ namespace StudentScoreApp.Server.Migrations
 
                     b.Property<int?>("HistoryScore")
                         .HasColumnType("int");
-
-                    b.Property<string>("IdCard")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("MathScore")
                         .HasColumnType("int");

@@ -15,6 +15,7 @@ namespace StudentScoreApp.Server.Controllers
             _studentDb = studentDb;
         }
 
+
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -25,8 +26,18 @@ namespace StudentScoreApp.Server.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(Student student)
         {
-           await _studentDb.AddAsync(student);
-           await _studentDb.SaveChangesAsync();
+            // ตรวจว่า IdCard ซ้้าไหม
+            var exists = await _studentDb.Students
+                .AnyAsync(s => s.IdCard == student.IdCard);
+
+            if (exists)
+            {
+                return BadRequest(new { message = "This ID card number is already in use." });
+            }
+
+            await _studentDb.AddAsync(student);
+            await _studentDb.SaveChangesAsync();
+
             return Ok(student);
         }
 
