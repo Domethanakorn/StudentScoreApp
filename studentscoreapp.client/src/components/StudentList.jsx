@@ -73,7 +73,7 @@ function StudentList({ students, searchTerm, reload }) {
                     ))}
                 </select>
                 <span className="text-gray-600">
-                    Showing {filteredStudents.length} student{filteredStudents.length !== 1 ? "s" : ""}
+                    Showing {filteredStudents.length} students
                 </span>
             </div>
 
